@@ -1,0 +1,31 @@
+{
+  "name": "bmjs-engpos",
+  "version": "1.0.0",
+  "description": "An English language utility for parsing and reformatting snippets of given text.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brent258/bmjs-engpos.git"
+  },
+  "keywords": [
+    "english pos",
+    "javascript",
+    "nodejs"
+  ],
+  "author": "Brent McCoy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brent258/bmjs-engpos/issues"
+  },
+  "homepage": "https://github.com/brent258/bmjs-engpos#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
+  },
+  "dependencies": {
+    "bmjs-random": "^1.0.0"
+  }
+}
