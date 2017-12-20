@@ -6,7 +6,7 @@ module.exports.search = function(sourceFilename,saveFilename) {
   }
   try {
     let data = fs.readFileSync(sourceFilename,'utf8');
-    let parsedData = data.replace(/\n/g,'').replace(/;\s*(informal)\s*/gi,', ').replace(/[^a-zA-Z,\s\-]/g,'').replace(/\s*,\s*/g,',').split(',').sort().filter((el,index,arr) => el.length && arr.indexOf(el) === index);
+    let parsedData = data.replace(/\n/g,'').replace(/;\s*([A-Za-z\s]*informal|North\sAmerican|rare|literary|Scottish|Latin|British|South\sAfrican)\s*/gi,', ').replace(/;/g,', ').replace(/[^a-zA-Z,\s\-]/g,'').replace(/\s*,\s*/g,',').split(',').sort().filter((el,index,arr) => el.length && arr.indexOf(el) === index);
     let phrases = '';
     let singleKeywords = [];
     let multiKeywords = [];
@@ -41,7 +41,7 @@ module.exports.replace = function(sourceFilename,saveFilename) {
   }
   try {
     let data = fs.readFileSync(sourceFilename,'utf8');
-    let parsedData = data.replace(/\n/g,'').replace(/;\s*(informal)\s*/gi,', ').replace(/[^a-zA-Z,\s\-]/g,'').replace(/\s*,\s*/g,',').split(',').filter((el,index,arr) => el.length);
+    let parsedData = data.replace(/\n/g,'').replace(/;\s*([A-Za-z\s]*informal|North\sAmerican|rare|literary|Scottish|Latin|British|South\sAfrican)\s*/gi,', ').replace(/;/g,', ').replace(/[^a-zA-Z,\s\-]/g,'').replace(/\s*,\s*/g,',').split(',').filter((el,index,arr) => el.length);
     let functions = '';
     let sortedObject = {};
     let currentProp;
