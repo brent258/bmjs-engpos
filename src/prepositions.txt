@@ -1,6 +1,6 @@
 ABOUT,
 
-regarding, concerning, with reference to, referring to, with regard to, with respect to, respecting, relating to, on, touching on, dealing with, relevant to, connected with, in connection with, on the subject of, in the matter of, apropos, re,
+in terms of, regarding, concerning, with reference to, referring to, with regard to, with respect to, respecting, relating to, on, touching on, dealing with, relevant to, connected with, in connection with, on the subject of, in the matter of, apropos, re,
 
 around, round, throughout, over, through, on every side of,
 
@@ -82,19 +82,19 @@ in the middle of, surrounded by, among, amongst, between, in the thick of; liter
 
 at a time of, in an atmosphere of, against a background of, during; as a result of,
 
-AMONG, amongst,
+AMONG,
 
-surrounded by, in the company of, amid, in the middle of, between, in the thick of; literary amidst, in the midst of,
+surrounded by, in the company of, amid, in the middle of, between, in the thick of; literary amidst, in the midst of, amongst,
 
-included in, one of, some of, in the group of, in the number of, out of,
+included in, one of, some of, in the group of, in the number of, out of, amongst,
 
-by the joint action of, by all of, by the whole of,
+by the joint action of, by all of, by the whole of, amongst,
 
-between, to each of,
+between, to each of, amongst,
 
-APROPOS, apropos of,
+APROPOS,
 
-with reference to, with regard to, with respect to, regarding, concerning, respecting, on the subject of, in the matter of, touching on, dealing with, connected with, in connection with, about, re; Scottish anent,
+with reference to, with regard to, with respect to, regarding, concerning, respecting, on the subject of, in the matter of, touching on, dealing with, connected with, in connection with, about, re; Scottish anent, apropos of,
 
 AROUND,
 
@@ -102,4 +102,314 @@ on every side of, on all sides of, about, circling, encircling, surrounding, enc
 
 all over, about, here and there in, everywhere in, in all parts of, to all parts of,
 
-approximately, about, round about, roughly, in the region of, something like, in the area of, in the neighbourhood of, of the order of, there or thereabouts, more or less, give or take a few, plus or minus a few; nearly, close to, as near as dammit, not far off, approaching; British getting on for; South African plus-minus; Latin circa; North American informal in the ballpark of.
+approximately, about, round about, roughly, in the region of, something like, in the area of, in the neighbourhood of, of the order of, there or thereabouts, more or less, give or take a few, plus or minus a few; nearly, close to, as near as dammit, not far off, approaching; British getting on for; South African plus-minus; Latin circa; North American informal in the ballpark of,
+
+AS,
+
+in the guise of, with the appearance of, in the character of, so as to appear to be,
+
+in the role of, being, acting as, functioning as,
+
+ASTRIDE,
+
+AT,
+
+ATOP,
+
+BAR,
+
+except for, apart from, but for, other than, besides, aside from, with the exception of, short of, barring, excepting, excluding, omitting, leaving out, save for, saving; informal outside of,
+
+BEFORE,
+
+prior to, previous to, earlier than, preparatory to, in preparation for, preliminary to, in anticipation of, in expectation of; in advance of, ahead of, leading up to, on the eve of; rare anterior to,
+
+in front of, in the presence of, in the sight of; before the very eyes of, under the nose of,
+
+in preference to, rather than, sooner than, above, over, instead of,
+
+BEHIND,
+
+at the back of, at the rear of, beyond, on the other side of, on the far side of, on the further side of; North American in back of,
+
+after, following, to the rear of, in the wake of, at the back of, close on, hard on the heels of, on the trail of,
+
+less advanced than, slower than, weaker than, inferior to,
+
+later than, late in relation to, after,
+
+responsible for, at the bottom of, at the back of, the cause of, the source of, the organizer of; to blame for, culpable of, guilty of; causing, instigating, initiating, urging,
+
+supporting, backing, for, on the side of, in agreement with; financing,
+
+BELOW,
+
+beneath, under, underneath, further down than, lower than,
+
+less than, lower than, under, not as much as, not so much as, smaller than; informal shy of,
+
+lower than, under, inferior to, subordinate to, secondary to, subservient to; subject to, controlled by, at the mercy of, under the heel of,
+
+BENEATH,
+
+under, underneath, below, at the foot of, at the bottom of; lower than,
+
+inferior to, not so important as, lower in status than, lower than, below; secondary to, subordinate to, subservient to,
+
+unworthy of, unbefitting for, inappropriate for, unbecoming to, undignified for, degrading to, below,
+
+BESIDE,
+
+alongside, by the side of, at the side of, next to, parallel to, abreast of, with, by; adjacent to, next door to, cheek by jowl with, hard by; bordering, abutting, neighbouring, close to, near, overlooking; archaic aside of,
+
+compared with, in comparison with, next to, against, contrasted with, in contrast to, in contrast with,
+
+BESIDES,
+
+apart from, other than, aside from, but for, save for, not counting, excluding, not including, except, with the exception of, excepting, bar, barring, leaving aside, beyond; in addition to, as well as, over and above, above and beyond; North American informal outside of; archaic forbye,
+
+BETWEEN,
+
+in the middle of; archaic betwixt,
+
+connecting, linking, joining; uniting, allying,
+
+BEYOND,
+
+on the far side of, on the farther side of, on the other side of, further on than, behind, past, after; over; Scottish outwith,
+
+later than, past, after,
+
+outside the range of, beyond the capacity of, beyond the power of, outside the limitations of, surpassing,
+
+greater than, more than, exceeding, in excess of, above, over and above, above and beyond, upwards of,
+
+apart from, except, other than,
+
+BUT,
+
+except for, apart from, other than, besides, aside from, with the exception of, short of, bar, barring, excepting, excluding, omitting, leaving out, save for, saving; informal outside of,
+
+BY,
+
+through the agency of, by means of, under the aegis of, using, utilizing, employing, with the help of, with the aid of, as a result of, because of, by dint of, by way of, by virtue of, via, through,
+
+no later than, in good time for, at, before,
+
+next to, beside, next door to, alongside, by the side of, at the side of, abreast of, adjacent to, cheek by jowl with, side by side with; near, close to, hard by, nearest to, neighbouring, adjoining, abutting, bordering, overlooking; connected to, connecting with, contiguous with, attached to,
+
+past, in front of, beyond,
+
+according to, with, concerning,
+
+CIRCA,
+
+approximately, about, around, round about, in the region of, roughly, something like, in the area of, in the neighbourhood of, of the order of, or so, or thereabouts, there or thereabouts, more or less, give or take a few, plus or minus a few; nearly, close to, not far off, approaching; British getting on for; South African plus-minus; informal as near as dammit; North American informal in the ballpark of,
+
+DESPITE,
+
+in spite of, notwithstanding, regardless of, in defiance of, without being affected by, in the face of, for all, even with, undeterred by,
+
+DOWN,
+
+lower in, lower on, to the bottom of,
+
+along, throughout the length of, to the other end of, through, across, by way of, via,
+
+throughout, through, during, in,
+
+DURING,
+
+throughout, through, in, in the course of, throughout the time of, for the time of, in the time of,
+
+EXCEPT,
+
+excluding, not including, excepting, omitting, leaving out, not counting, but, besides, barring, bar, other than, exclusive of, saving, save, apart from, aside from; with the exception of, with the omission of, with the exclusion of; informal outside of; archaic forbye, except for
+
+FOR,
+
+FROM,
+
+IN,
+
+inside, within, in the middle of, within the bounds of, within the confines of; surrounded by, enclosed by,
+
+with, by,
+
+into, inside, into the interior of,
+
+during, in the course of, in the time of, over,
+
+after, at the end of, following, subsequent to; within, in less than, in under, in no more than,
+
+to, per, every, each,
+
+INSIDE,
+
+INTO,
+
+LESS,
+
+minus, subtracting, excepting, without, lacking,
+
+LIKE,
+
+similar to, the same as, identical to,
+
+in the same way as, in the manner of, in the same manner as, in the same way that, in a similar way to, after the fashion of, along the lines of, on the lines of, as, tantamount to,
+
+such as, for example, for instance, in particular, as, namely, viz,
+
+characteristic of, typical of, in character with,
+
+MINUS,
+
+NEAR,
+
+close to, close by, not far from, not far away from, a short distance from, in the vicinity of, in the neighbourhood of, within reach of, a stone's throw away from, next to, adjacent to, alongside, bordering on, adjoining, abutting, contiguous with; informal within spitting distance of, within sniffing distance of,
+
+NOTWITHSTANDING,
+
+in spite of, despite, regardless of, for all,
+
+OF,
+
+OFF,
+
+ON,
+
+supported by, resting on, in contact with,
+
+on to, onto,
+
+ONTO,
+
+OPPOSITE,
+
+facing, face to face with, across from; informal eyeball to eyeball with; archaic fronting,
+
+OUT,
+
+OUTSIDE,
+
+OVER,
+
+above, on top of, higher than, higher up than, atop,
+
+across, on to, around, throughout, all through, throughout the extent of, everywhere in, in all parts of,
+
+superior to, above, higher up than, more powerful than, in charge of, responsible for, commanding,
+
+more than, above, in excess of, exceeding, upwards of, beyond, greater than,
+
+on the subject of, about, concerning, apropos of, with reference to, speaking of, with regard to, with respect to, regarding, as regards, relating to, respecting, in connection with, as for, re,
+
+PAST,
+
+in front of, by, beyond,
+
+beyond, beyond the limits of, in excess of,
+
+PER,
+
+RE,
+
+SANS,
+
+SAVE,
+
+except, except for, apart from, but, but for, other than, besides, aside from, with the exception of, bar, barring, excluding, omitting, leaving out, saving; informal outside of,
+
+SINCE,
+
+THAN,
+
+THROUGH,
+
+into and out of, to the other side of, to the far side of, from end to end of, between, past, by, down, along, across, by way of, via; throughout, around in, all over,
+
+by means of, by way of, by dint of, through the agency of, via, using, with the help of, with the aid of, with the assistance of, thanks to, under the aegis of, by virtue of, as a result of, as a consequence of, on account of, owing to, because of,
+
+throughout, all through, for the duration of, until the end of, to the end of, during,
+
+up to and including,
+
+THROUGHOUT,
+
+all over, all round, in every part of, everywhere in, all through, right through, here and there in, round,
+
+all through, through, for the duration of, for the whole of, until the end of, the whole time through, all the time through,
+
+TO,
+
+TOWARDS,
+
+in the direction of, to, toward, so as to approach, so as to near; on the way to, on the road to, en route for, in the vicinity of,
+
+with the aim of, in order to obtain, in order to achieve, so as to achieve, for, toward,
+
+just before, shortly before, near, nearing, around, approaching, close to, coming to, getting on for, not quite, toward,
+
+with regard to, as regards, regarding, with regard to, in regard to, with respect to, in respect to, respecting, in relation to, concerning, about, in connection with, apropos, toward,
+
+as a contribution to, for, as a help to, to help, to assist, supporting, promoting, assisting, toward,
+
+UNDER,
+
+beneath, below, underneath, at the bottom of, at the foot of,
+
+less than, lower than, smaller than, not so much as, not as much as, below; informal shy of,
+
+subordinate to, junior to, inferior to, secondary to, subservient to, reporting to, answerable to, responsible to, subject to; controlled by, at the mercy of, under the heel of,
+
+undergoing, in the process of, receiving,
+
+flooded by, immersed in, submerged by, sunk in, engulfed by, inundated by, drowned by,
+
+subject to, liable to, bound by, controlled by, constrained by, under the control of, at the mercy of,
+
+UNDERNEATH,
+
+UNLIKE,
+
+different from, unalike, dissimilar to, not like, not similar to, not resembling, far from, far apart from, distant from,
+
+in contrast to, in contrast with, differently from, in contradistinction to, as opposed to, not like, not typical of, uncharacteristic of,
+
+UNTIL,
+
+till, up to, up till, up until, as late as, up to the time of, up to the time that, until such time as, pending; North American through,
+
+before, prior to, previous to, up to, up until, till, up till, earlier than, in advance of,
+
+UP,
+
+UPON,
+
+UPSIDE,
+
+VERSUS,
+
+vs.,
+
+VIA,
+
+WITH,
+
+accompanied by, in the company of, escorted by,
+
+WITHIN,
+
+inside, in, within the bounds of, within the confines of, enclosed by, surrounded by,
+
+inside, inside the range of, inside the limits of, within the bounds of,
+
+in less than, in under, in no more than, after only,
+
+WITHOUT,
+
+lacking, in need of, wanting for, needing, requiring, short of; deprived of, destitute of,
+
+unaccompanied by, unescorted by; in the absence of,
+
+WORTH,

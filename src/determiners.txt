@@ -1,0 +1,139 @@
+A,
+
+AN,
+
+THE,
+
+A FEW,
+
+not many, hardly any, scarcely any; a small number of, a small amount of, a small quantity of, one or two, a handful of, a sprinkling of; little; informal a couple of,
+
+A BIT OF,
+
+some, a small amount of, a little, a touch of, a soupcon of, a dash of, a taste of, a dab of, a spot of, a modicum of, a morsel of, a fragment of, a snippet of, a tinge of, a particle of, a jot of, a shade of, a suggestion of, a trace of, a hint of, a suspicion of; a dribble of, a splash of, a driblet of; a pinch of, a sprinkling of, a sprinkle of, a grain of, a speck of; informal a smidgen of, a tad of,
+
+ALL,
+
+each of the, each one of the, every one of the, every single one of the,
+
+every, each and every, every single,
+
+the whole of the, every bit of the, the complete, the entire, the totality of the, all of the,
+
+ANOTHER,
+
+one more, a further, an additional, a second; an extra, a spare,
+
+a different, some other, not the same, an alternative,
+
+ANY,
+
+some, a piece of, a part of, a bit of,
+
+the slightest bit of, the smallest amount of, a scrap of, a shred of, a particle of, an atom of, an iota of, a jot of, a whit of,
+
+whichever, whichever comes to hand, no matter which, never mind which; informal any old,
+
+BOTH,
+
+EACH,
+
+every, each and every, every single,
+
+EITHER,
+
+ENOUGH,
+
+sufficient, plenty of, a sufficient amount of, an adequate amount of, as much as necessary; a sufficiency of, an adequacy of, an ample supply of, a satisfactory amount of, a passable amount of, a tolerable amount of, an acceptable amount of, an abundance of, an amplitude of, the necessary,
+
+EVERY,
+
+each, each and every, every single,
+
+all possible, all probable, the utmost, as much as possible, as great as possible,
+
+FEW,
+
+not many, hardly any, scarcely any; a small number of, a small amount of, a small quantity of, one or two, a handful of, a sprinkling of; little; informal a couple of,
+
+HER,
+
+HIS,
+
+ITS,
+
+LITTLE,
+
+hardly any, not much, slight, small, scant, limited, restricted, modest, little or no, minimal, negligible; insufficient, inadequate,
+
+MANY,
+
+numerous, a good deal of, a great deal of, a lot of, a great number of, a large number of, great quantities of, plenty of, countless, innumerable, scores of, crowds of, droves of, an army of, a horde of, a multitude of, a multiplicity of, multitudinous, numberless, multiple, untold; several, various, sundry, diverse, assorted, multifarious; copious, abundant, profuse, an abundance of, a profusion of; frequent; informal lots of, umpteen, eleventy, loads of, masses of, stacks of, scads of, heaps of, piles of, bags of, tons of, oodles of, dozens of, hundreds of, thousands of, millions of, billions of, zillions of; British informal shedload; North American informal a slew of, gazillions of, bazillions of, gobs of; informal a swag of; literary myriad, divers,
+
+MORE,
+
+additional, further, added, extra, increased, fresh, new, other, supplementary, supplemental, spare, alternative,
+
+MOST,
+
+nearly all, nearly all of, almost all, almost all of, the greatest quantity of, the greatest number of, the greatest part of, the majority of, the bulk of, the lion's share of, the mass of, the preponderance of, most of,
+
+MUCH,
+
+a lot of, a good deal of, a great deal of, a large amount of, a great amount of, plenty of, ample, copious, abundant, plentiful, considerable, substantial; informal lots of, loads of, heaps of, masses of, a pile of, piles of, oodles of, tons of, lashings of, a shedload of; North American informal gobs of,
+
+MY,
+
+NEITHER,
+
+NO,
+
+OTHER,
+
+OUR,
+
+PLENTY,
+
+a lot of, many, a great deal of, a good deal of, a large amount of, a large number of, a plethora of, quantities of, enough, more than enough, enough and to spare, no lack of, sufficient, a wealth of, a feast of, a cornucopia of; informal loads of, lots of, heaps of, bags of, stacks of, piles of, masses of, tons of, oodles of, oceans of, a raft of, a hatful of; British informal lashings of; North American informal scads of, a slew of, gobs of, gazillions of; informal a swag of; archaic a deal of, a mickle of, a peck of, plenty of,
+
+SEVERAL,
+
+some, a number of, a few, not very many, a handful of, a small group of, various, a variety of, assorted, sundry, diverse; literary divers,
+
+SOME,
+
+SUCH,
+
+SUFFICIENT,
+
+enough, adequate, plenty of, ample, abundant; informal plenty,
+
+THAT,
+
+THEIR,
+
+THESE,
+
+THIS,
+
+THOSE,
+
+VARIOUS,
+
+diverse, different, differing, varied, varying, a variety of, dissimilar, disparate, assorted, mixed, sundry, miscellaneous, variegated, heterogeneous; literary divers,
+
+numerous, many, several, copious, abundant, profuse, countless, innumerable, large number of, multiplicity of,
+
+WHAT,
+
+WHATEVER,
+
+WHICH,
+
+WHICHEVER,
+
+WHOSE,
+
+WHOSEVER,
+
+YOUR,

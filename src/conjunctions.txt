@@ -1,0 +1,147 @@
+AFTER,
+
+ALTHOUGH,
+
+in spite of the fact that, despite the fact that, notwithstanding the fact that, notwithstanding that, even though, even if, for all that, while, whilst; granted that, even supposing, despite the possibility that,
+
+AND,
+
+together with, along with, with, as well as, in addition to, including, also; informal plus, what's more,
+
+besides, furthermore, moreover; informal plus, what's more,
+
+AS,
+
+while, just as, even as, at the time that, at the same time that, at the moment that, during the time that, just when,
+
+in the way that, in the same way that, the way, the same way, in the manner that, in the same manner that; informal like, as though, as if, how,
+
+what; archaic that which,
+
+because, since, seeing that, seeing as, considering that, on account of the fact that, in view of the fact that, owing to the fact that; informal on account of; literary for; archaic forasmuch,
+
+although, though, even though, even if, in spite of the fact that, despite the fact that, notwithstanding the fact that, notwithstanding that, for all that, while, whilst, albeit, however,
+
+such as, like, for instance, for example, e.g., to give an instance, to give an example, by way of illustration, as an illustration,
+
+which, a fact which, something which,
+
+AS FAR AS,
+
+AS WELL AS,
+
+together with, in addition to, along with, besides, plus, and, coupled with, with, over and above, on top of, over and beyond, not to mention, to say nothing of, let alone,
+
+BECAUSE,
+
+since, as, for the reason that, in view of the fact that, owing to the fact that, seeing that, seeing as, being that, for that,
+
+BEFORE,
+
+BUT,
+
+yet; nevertheless, nonetheless, even so, however, still, notwithstanding, despite that, in spite of that, for all that, all the same, just the same, at the same time, be that as it may; though, although; informal still and all; archaic withal, natheless, howbeit,
+
+whereas; conversely, but then, then again, on the other hand, by contrast, in contrast, contrarily, on the contrary, having said that,
+
+EITHER,
+
+EVEN IF,
+
+even though,
+
+FOR,
+
+HOW,
+
+as far as, in so far as, in as much as, the way, the way in which, insofar as,
+
+HOWEVER,
+
+any way,
+
+IF,
+
+on condition that, provided, provided that, providing, providing that, presuming, presuming that, supposing, supposing that, assuming, assuming that, on the assumption that, allowing, allowing that, as long as, given that, with the provision that, with the proviso that, with the understanding that, on the understanding that, if and only if, contingent on, in the event that, allowing that, if and when, if so be,
+
+whenever, every time,
+
+whether, whether or not,
+
+although, albeit, but, despite being, in spite of being, yet, whilst,
+
+even if, even when, even though,
+
+in case, in the event that, in the event, just in case,
+
+NEITHER,
+
+NOR,
+
+NOW,
+
+now that,
+
+ONCE,
+
+as soon as, when, after, immediately after, the instant, the moment, the second, the minute,
+
+ONLY,
+
+OR,
+
+PROVIDED,
+
+if, on condition that, providing, providing that, provided that, presuming, presuming that, assuming, assuming that, on the assumption that, as long as, given, given that, with the provision that, with the proviso that, with the understanding that, if and only if, contingent on, in the event that, allowing that,
+
+SINCE,
+
+ever since,
+
+SO,
+
+in order that, so that, such that,
+
+THAN,
+
+THAT,
+
+THEN,
+
+THOUGH,
+
+although, even though, even if, in spite of the fact that, despite the fact that, notwithstanding the fact that, notwithstanding that, for all that, while, whilst, granted that, even supposing, despite the possibility that, albeit, however, yet, but,
+
+TILL,
+
+until, up till, up until, as late as, up to the time that, until such time as,
+
+UNLESS,
+
+UNTIL,
+
+till, up till, up until, as late as, up to the time that, until such time as,
+
+WHEN,
+
+the time, the time which, the time at which, the time when,
+
+WHENEVER,
+
+anytime, any time,
+
+WHERE,
+
+the place, the place in which, the place where,
+
+WHEREAS,
+
+WHEREVER,
+
+any place, anywhere,
+
+WHETHER,
+
+WHILE,
+
+YET,

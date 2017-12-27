@@ -1,10 +1,15 @@
 const build = require('./src/build-src.js');
-const thesaurus = require('./src/collins.js');
-const dict = require('./lib/dictionary.js');
 
-//build.search('src/prepositions.txt','lib/preposition-search.js');
-//build.replace('src/prepositions.txt','lib/preposition-replace.js');
-console.log(dict.PrepositionReplace(process.argv.splice(2).join(' ')));
+let buildStopwords = function() {
+  build.search('src/prepositions.txt','lib/preposition-search.js');
+  build.replace('src/prepositions.txt','lib/preposition-replace.js');
+  build.search('src/conjunctions.txt','lib/conjunction-search.js');
+  build.replace('src/conjunctions.txt','lib/conjunction-replace.js');
+  build.search('src/determiners.txt','lib/determiner-search.js');
+  build.replace('src/determiners.txt','lib/determiner-replace.js');
+};
+
+buildStopwords();
 
 let buildDictionary = function() {
   let a = build.filterWords('src/a-wordlist.txt');

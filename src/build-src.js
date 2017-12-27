@@ -7,26 +7,31 @@ module.exports.search = function(sourceFilename,saveFilename) {
   }
   try {
     let data = fs.readFileSync(sourceFilename,'utf8');
-    let parsedData = data.replace(/\n/g,'').replace(/;\s*([A-Za-z\s]*informal|North\sAmerican|rare|literary|Scottish|Latin|British|South\sAfrican)\s*/gi,', ').replace(/;/g,', ').replace(/[^a-zA-Z,\s\-]/g,'').replace(/\s*,\s*/g,',').split(',').sort().filter((el,index,arr) => el.length && arr.indexOf(el) === index);
+    let parsedData = data.replace(/\n/g,'').replace(/;\s*([A-Za-z\s]*informal|North\sAmerican|rare|literary|Scottish|Latin|British|South\sAfrican|archaic)\s*/gi,', ').replace(/;/g,', ').replace(/[^a-zA-Z,\s\-]/g,'').replace(/\s*,\s*/g,',').split(',').sort().filter((el,index,arr) => el.length && arr.indexOf(el) === index);
     let phrases = '';
     let singleKeywords = [];
     let multiKeywords = [];
     for (let i = 0; i < parsedData.length; i++) {
       let keyword = parsedData[i].trim().toLowerCase();
+      let capitalizedKeyword = keyword[0].toUpperCase() + keyword.slice(1);
       if (keyword.match(/\s/)) {
         if (i < parsedData.length-1) {
-          phrases += `\n\t\t{search: /\\b${keyword.replace(/\s/g,'\\s')}\\s/gi, replace: '${keyword.replace(/\s/g,'_')} '},`;
+          phrases += `\n\t\t{search: /\\b${keyword.replace(/\s/g,'\\s')}\\s/g, replace: '${keyword.replace(/\s/g,'_')} '},\n\t\t{search: /\\b${capitalizedKeyword.replace(/\s/g,'\\s')}\\s/g, replace: '${capitalizedKeyword.replace(/\s/g,'_')} '},`;
         }
         else {
           phrases += `\n\t\t{search: /\\b${keyword.replace(/\s/g,'\\s')}\\s/gi, replace: '${keyword.replace(/\s/g,'_')} '}`;
         }
         multiKeywords.push(keyword.replace(/\s/g,'_'));
+        multiKeywords.push(capitalizedKeyword.replace(/\s/g,'_'));
       }
       else {
         singleKeywords.push(keyword);
+        singleKeywords.push(capitalizedKeyword);
       }
     }
-    let saveFile = `module.exports = {\n\tphrases: [${phrases}\n\t],\n\tsingleRegex: /(\\b)(${singleKeywords.join('|')})([^_])/gi,\n\tmultiRegex: /(\\b)(${multiKeywords.join('|')})/gi\n};`;
+    singleList = singleKeywords.map(value => '\'' + value + '\'').join(',');
+    multiList = multiKeywords.map(value => '\'' + value + '\'').join(',');
+    let saveFile = `module.exports = {\n\tphrases: [${phrases}\n\t],\n\tsingleRegex: /(\\b)(${singleKeywords.join('|')})(\\b[^_])/gi,\n\tmultiRegex: /(\\b)(${multiKeywords.join('|')})(\\b)/gi,\n\tsingleList: [${singleList}],\n\tmultiList: [${multiList}]\n};`;
     fs.writeFile(saveFilename,saveFile,'utf8', error => {
       if (error) console.error(`Unable to build file: ${saveFilename}`);
       console.log(`Finished building file: ${saveFilename}`);
@@ -42,7 +47,7 @@ module.exports.replace = function(sourceFilename,saveFilename) {
   }
   try {
     let data = fs.readFileSync(sourceFilename,'utf8');
-    let parsedData = data.replace(/,\n/g,'\n').replace(/\n\n/g,'\n').replace(/;\s*([A-Za-z\s]*informal|North\sAmerican|rare|literary|Scottish|Latin|British|South\sAfrican)\s*/gi,', ').replace(/;/g,', ').replace(/[^a-zA-Z,\s\-\n]/g,'').replace(/\s*,\s*/g,',').split('\n');
+    let parsedData = data.replace(/,\n/g,'\n').replace(/\n\n/g,'\n').replace(/;\s*([A-Za-z\s]*informal|North\sAmerican|rare|literary|Scottish|Latin|British|South\sAfrican|archaic)\s*/gi,', ').replace(/;/g,', ').replace(/[^a-zA-Z,\s\-\n]/g,'').replace(/\s*,\s*/g,',').split('\n');
     let functions = '';
     let sortedObject = {};
     let currentProp;
@@ -70,7 +75,9 @@ module.exports.replace = function(sourceFilename,saveFilename) {
         let obj = [prop,...sortedObject[prop][index]];
         let values = obj.sort().filter((el,index,arr) => arr.indexOf(el) === index).map(value => `'${value}'`).join(',');
         let keys = obj.sort().filter((el,index,arr) => el.match(/\s/) && arr.indexOf(el) === index).map(value => `case '${value}':`).join('\n\t\t');
-        switchCases.push(`\n\t\t${keys}\n\t\t\treturn rand(...[${values}]);`);
+        if (keys) {
+          switchCases.push(`\n\t\t${keys}\n\t\t\treturn rand(...[${values}]);`);
+        }
       }
     }
     switchCases = switchCases.sort().filter((el,index,arr) => arr.indexOf(el) === index).join('');
