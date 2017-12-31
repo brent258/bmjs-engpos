@@ -10,28 +10,12 @@ describe('POS', () => {
   });
 
   it('split stopwords should break sentences on special keywords', () => {
-    let check1 = pos.splitStopwords('they are good in terms of health.');
-    expect(check1).to.deep.equal([
-      {word: 'they', type: 'COMPONENT'},
-      {word: 'are', type: 'VERB'},
-      {word: 'good', type: 'COMPONENT'},
-      {word: 'in terms of', type: 'PREPOSITION'},
-      {word: 'health', type: 'COMPONENT'},
-      {word: '.', type: 'PUNCTUATION'}
-    ]);
-  });
-
-  it('match tags should return true or false if word matches found', () => {
-    let check1 = pos.matchTag('eat','verb');
-    let check2 = pos.matchTag('hairy','verb');
-    let check3 = pos.matchTag('hairy','adjective');
-    let check4 = pos.matchTag('apple','noun');
-    let check5 = pos.matchTag('particularly','adverb');
-    expect(check1).to.equal(true);
-    expect(check2).to.equal(false);
-    expect(check3).to.equal(true);
-    expect(check4).to.equal(true);
-    expect(check5).to.equal(true);
+    let result = pos.splitStopwords('they are good in terms of health.');
+    expect(result).to.be.an('array');
+    expect(result[0]).to.be.an('object');
+    expect(result[0]).to.have.property('pos');
+    expect(result[0]).to.have.property('type');
+    expect(result[0]).to.have.property('word');
   });
 
   it('swap should take sentence object and return replaced object', () => {
@@ -41,9 +25,37 @@ describe('POS', () => {
   });
 
   it('find components should return an array of extracted components', () => {
-    let obj = pos.splitStopwords('Tibetan terriers are proof that hypoallergenic doesnt mean no hair. They make our list because they shed minimally, but this bushy breed still requires a lot of grooming. Fun Fact: These fluffy dogs were once the companions to Buddhist monks and the guard dogs of nomadic herdsmen.');
+    let obj = pos.splitStopwords('Non-shedding and hypoallergenic dogs seem to be more popular than ever. With dog allergies so common, many pet lovers are seeking hypoallergenic dog breeds - sometimes paying thousands of dollars to get them. And still others are going hypoallergenic for the hair, or lack of it. Dog shedding is a big problem for many pet owners, but it\'s another strike off the list for owners of hypoallergenic dog breeds.  ');
     let swapped = pos.swap(obj);
-    pos.findComponents(swapped);
+    let comps = pos.findComponents(swapped);
+    expect(comps).to.be.an('array');
+  });
+
+  it('pretty print should print a randomized paragraph', () => {
+    let sentence = pos.prettyPrint('An English language utility for extracting interesting parts from a string of text and re-printing them in a selection of formats. Also includes options for replacing recognized terms from an in-built thesaurus, filtering out common stopwords and randomizing the output order.',true,true,true);
+    expect(sentence).to.be.a('string');
+  });
+
+  it('pretty print list should print a randomized paragraph in list form', () => {
+    let sentence = pos.prettyPrintList('An English language utility for extracting interesting parts from a string of text and re-printing them in a selection of formats. Also includes options for replacing recognized terms from an in-built thesaurus, filtering out common stopwords and randomizing the output order.',true,true,true);
+    expect(sentence).to.be.a('string');
+  });
+
+  it('snippet should print a random component if found under 30 characters', () => {
+    let sentence = pos.prettyPrintSnippet('An English language utility for extracting interesting parts from a string of text and re-printing them in a selection of formats. Also includes options for replacing recognized terms from an in-built thesaurus, filtering out common stopwords and randomizing the output order.',true,true,true);
+    expect(sentence).to.be.a('string');
+  });
+
+  it('snippets should extract array of components if found under 30 characters', () => {
+    let sentence = pos.prettyPrintSnippets('An English language utility for extracting interesting parts from a string of text and re-printing them in a selection of formats. Also includes options for replacing recognized terms from an in-built thesaurus, filtering out common stopwords and randomizing the output order.',true,true,true);
+    expect(sentence).to.be.an('array');
+  });
+
+  it('is question should detect question phrases', () => {
+    let q1 = pos.isQuestion('does he like ham');
+    let q2 = pos.isQuestion('he likes ham');
+    expect(q1).to.equal(true);
+    expect(q2).to.equal(false);
   });
 
 });
