@@ -22,7 +22,7 @@ console.log(printed);
 - English language use for extracting beguiling parts from string of text.
 - Re-printing them in selection of formats. */
 ```
-***prettyPrintSnippets():*** Returns an array of shortened snippets of text (sentence: *String*,spin: *Bool*,strip: *Bool*,randomize: *Bool*) -> *String*
+***prettyPrintSnippets():*** Returns an array of shortened snippets of text (sentence: *String*,spin: *Bool*,strip: *Bool*,randomize: *Bool*) -> *[String]*
 ```javascript
 let printed = pos.prettyPrintSnippets(sentence,true,true,true);
 console.log(printed);
