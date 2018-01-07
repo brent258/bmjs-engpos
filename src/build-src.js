@@ -126,7 +126,7 @@ module.exports.filterWords = function(file) {
     throw new Error('Unable to build source without filename.');
   }
   try {
-    return fs.readFileSync(file,'utf8').split('\n').filter(el => !el.match(/[^a-z\s\-]/) && !el.match(/(\ssomething\b|\ssomeone\b|\sor\s)/));
+    return fs.readFileSync(file,'utf8').split('\n').filter(el => !el.match(/[^a-z\s\-]/) && !el.match(/(\ssomething\b|\ssomeone\b|\sor\s|\syour\s|\syourself\b|\soneself\b)/));
   }
   catch (error) {
     throw error;
@@ -143,12 +143,8 @@ module.exports.getWords = function(words,letter,dir,obj,index) {
   if (typeof index !== 'number') index = 0;
   thesaurus.synonyms(words[index]).then(syn => {
     let kw = words[index];
-    syn.synonyms = syn.synonyms.filter(el => !el.match(/[^a-z\s\-]/) && !el.match(/(\ssomething\b|\ssomeone\b|\sor\s)/));
-    console.log('Adding synonyms for: ' + kw);
+    console.log('Adding keyword to dictionary: ' + kw);
     obj[kw] = syn;
-    if (!obj[kw].synonyms.includes(kw)) {
-      obj[kw].synonyms.push(kw);
-    }
     index++;
     if (index < words.length) {
       this.getWords(words,letter,dir,obj,index);
@@ -162,7 +158,7 @@ module.exports.getWords = function(words,letter,dir,obj,index) {
   })
   .catch(error => {
     let kw = words[index];
-    console.log('Invalid keyword: ' + kw);
+    console.log('Error retrieving keyword: ' + kw);
     index++;
     if (index < words.length) {
       this.getWords(words,letter,dir,obj,index);

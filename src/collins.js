@@ -15,18 +15,47 @@ module.exports.synonyms = function(word) {
       try {
         html = html.replace(/(\s*\n\s*|\s*\r\s*)/g,'');
         let $ = cheerio.load(html);
+        let sectionsCount = $('.hom').get().length;
+        let section = $('.hom').first();
         let obj = {};
-        let num = $('.span.sensenum').text();
-        let pos = $('span.titleType').first().text();
-        let synonyms = $('.blockSyn .form.type-syn .orth').map(function(i,el) {
-          return $(this).text();
-        }).get().sort().filter((el,index,arr) => el.length && arr.indexOf(el) === index);
-        if (!synonyms.length || num) {
-          reject('Invalid search response');
+        for (let i = 0; i < sectionsCount; i++) {
+          let txt = section.text();
+          if (txt) {
+            let pos = section.find('.titleType').first().text();
+            if (!obj[pos]) obj[pos] = {};
+            let senseCount = section.find('.sensenum').get().length || 1;
+            let sense = section.find('.sense').first();
+            for (let j = 0; j < senseCount; j++) {
+              let txt = sense.text();
+              if (txt) {
+                let synonyms = sense.find('.form.type-syn .orth').map(function(i,el) {
+                  return $(this).text().replace(/[^a-zA-Z\-\'\s]/g,'');
+                }).get().filter(el => !el.match(/(\ssomething\b|\ssomeone\b|\sor\s|\syour\s|\syourself\b|\soneself\b)/));
+                if (!synonyms.includes(word) && synonyms.length) synonyms.push(word);
+                if (!obj[pos].all || !obj[pos].all.length) obj[pos].all = [];
+                if (!obj[pos].senses || !obj[pos].senses.length) obj[pos].senses = [];
+                if (synonyms.length) obj[pos].all.push(...synonyms);
+                if (synonyms.length) obj[pos].senses.push(synonyms);
+              }
+              sense = sense.next('.sense');
+            }
+            let sortedWords = obj[pos].all.sort();
+            obj[pos].all = sortedWords.filter((el,index,arr) => arr.indexOf(el) === index);
+            obj[pos].common = [];
+            for (let j = 0; j < sortedWords.length; j++) {
+              if (j > 0 && !obj[pos].common.includes(sortedWords[j]) && sortedWords[j] === sortedWords[j-1]) {
+                obj[pos].common.push(sortedWords[j]);
+              }
+            }
+          }
+          section = section.next('.hom');
         }
-        obj.synonyms = synonyms;
-        obj.pos = pos;
-        resolve(obj);
+        if (Object.keys(obj).length) {
+          resolve(obj);
+        }
+        else {
+          reject('No object found for: ' + word);
+        }
       }
       catch (error) {
         reject(error);

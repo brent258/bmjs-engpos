@@ -1,9 +1,44 @@
 const rand = require('bmjs-random');
-const dict = require('./lib/dictionary.js');
+const dict = require('./lib/dictionary/dictionary.js');
+const temp = require('./lib/templates/templates.js');
 const Tag = require('en-pos').Tag;
 const shuffle = require('bmjs-shuffle');
 
 module.exports = {
+
+  thesaurusOptions: {},
+
+  init: function() {
+    this.thesaurusOptions.adjective = true;
+    this.thesaurusOptions.noun = true;
+    this.thesaurusOptions.verb = true;
+    this.thesaurusOptions.adverb = true;
+  },
+
+  unset: function(options) {
+    if (!options || !options.length || (typeof options === 'object' && !options[0])) {
+      return;
+    }
+    if (typeof options === 'string') {
+      options = [options];
+    }
+    for (let i = 0; i < options.length; i++) {
+      switch (options[i].toLowerCase()) {
+        case 'adjective':
+        this.thesaurusOptions.adjective = false;
+        break;
+        case 'verb':
+        this.thesaurusOptions.verb = false;
+        break;
+        case 'adverb':
+        this.thesaurusOptions.adverb = false;
+        break;
+        case 'noun':
+        this.thesaurusOptions.noun = false;
+        break;
+      }
+    }
+  },
 
   splitStopwords: function(sentence) {
       if (!sentence || typeof sentence !== 'string') {
@@ -73,9 +108,9 @@ module.exports = {
       return stopwords;
     },
 
-    matchTag: function(pos,type) {
-      if (!pos || typeof pos !== 'string' || !type || typeof type !== 'string') {
-        console.log('Unable to find tag without word.');
+    matchTag: function(pos) {
+      if (!pos || typeof pos !== 'string') {
+        console.log('Unable to find tag without part of speech tag.');
         return;
       }
       switch (pos.toUpperCase()) {
@@ -85,29 +120,29 @@ module.exports = {
         case 'VBD':
         case 'VBN':
         case 'VBG':
-        if (type.trim().toUpperCase() === 'VERB') {
-          return true;
+        if (this.thesaurusOptions.verb) {
+          return 'verb';
         }
         case 'NN':
         case 'NNS':
         case 'NNP':
         case 'NNPS':
-        if (type.trim().toUpperCase() === 'NOUN') {
-          return true;
+        if (this.thesaurusOptions.noun) {
+          return 'noun';
         }
         case 'JJ':
         case 'JJR':
         case 'JJS':
-        if (type.trim().toUpperCase() === 'ADJECTIVE') {
-          return true;
+        if (this.thesaurusOptions.adjective) {
+          return 'adjective';
         }
         case 'RB':
         case 'RBR':
         case 'RBS':
-        if (type.trim().toUpperCase() === 'ADVERB') {
-          return true;
+        if (this.thesaurusOptions.adverb) {
+          return 'adverb';
         }
-        default: return false;
+        default: return undefined;
       }
     },
 
@@ -146,8 +181,19 @@ module.exports = {
       let search = uppercased ? searchObject.word.toLowerCase() : searchObject.word;
       let synonyms = dict[letter];
       let result;
-      if (spin && synonyms && synonyms[search] && this.matchTag(searchObject.pos,synonyms[search].pos)) {
-        result = rand(...synonyms[search].synonyms);
+      let key = this.matchTag(searchObject.pos);
+      if (spin && synonyms && synonyms[search] && synonyms[search][key]) {
+        if (synonyms[search][key].senses.length && synonyms[search][key].senses.length < 5) {
+          result = rand(...synonyms[search][key].all);
+        }
+        else {
+          if (synonyms[search][key].common.length > 5) {
+            result = rand(...synonyms[search][key].common);
+          }
+          else {
+            result = rand(...synonyms[search][key].senses[0]);
+          }
+        }
       }
       else {
         result = search;
@@ -178,7 +224,7 @@ module.exports = {
         console.log('Unable to detect question without string.');
         return;
       }
-      if (phrase.match(/^(how|why|when|what|which)*\s*(do|does|did|doesn\'t|didn\'t|don\'t|have|has|had|haven\'t|hadn\'t|hasn\'t|is|are|was|were|isn\'t|aren\'t|wasn\'t|weren\'t|can|might|may|will|would|could|should|can\'t|mightn\'t|won\'t|wouldn\'t|couldn\'t|shouldn\'t)\s(i|my|you|your|he|his|she|her|it|its|they|their|we|our|this|that|these|those)/gi)) {
+      if (phrase.match(/^(how|why|when|what|which)*\s*(do|does|did|doesn\'t|didn\'t|don\'t|have|has|had|haven\'t|hadn\'t|hasn\'t|is|are|was|were|isn\'t|aren\'t|wasn\'t|weren\'t|can|might|may|will|would|could|should|can\'t|mightn\'t|won\'t|wouldn\'t|couldn\'t|shouldn\'t)/gi)) {
         return true;
       }
       return false;
@@ -418,5 +464,177 @@ module.exports = {
       }
       return [];
     },
+
+    validateSentence: function(sentence) {
+      if (!sentence || typeof sentence !== 'string') {
+        console.log('Unable to detect sentence for validation.');
+        return;
+      }
+      if (!(sentence.match(dict.PrepositionSearch.singleRegex) || sentence.match(dict.ConjunctionSearch.singleRegex) || sentence.match(dict.DeterminerSearch.singleRegex))) return false;
+      if (sentence.match(dict.VerbSearch.commonRegex) || sentence.match(dict.VerbSearch.contractionRegex)) return true;
+      return false;
+    },
+
+    keywordType: function(keyword) {
+      if (!keyword || typeof keyword !== 'string') {
+        console.log('Unable to detect keyword to check for type.');
+        return;
+      }
+      if (this.isQuestion(keyword)) return 'QUESTION';
+      let wordSplit = keyword.split(' ');
+      if (wordSplit.includes('and') || wordSplit.includes('or')) return 'PLURAL';
+      let tags = new Tag(wordSplit).initial().smooth().tags;
+      if (tags.indexOf('WRB') === 0) return 'SINGULAR';
+      if (tags.indexOf('VB') === 0) return 'VERB';
+      if (tags.indexOf('VBG') === 0 || wordSplit[0].match(/[a-z]+ing$/)) return 'GERUND';
+      if (tags.includes('NN') && tags.includes('NNS')) {
+        if (tags.indexOf('TO') > tags.indexOf('NN') && tags.indexOf('TO') < tags.indexOf('NNS')) return 'SINGULAR';
+        if (tags.indexOf('TO') > tags.indexOf('NNS') && tags.indexOf('TO') < tags.indexOf('NN')) return 'PLURAL';
+        if (tags.indexOf('IN') > tags.indexOf('NN') && tags.indexOf('IN') < tags.indexOf('NNS')) return 'SINGULAR';
+        if (tags.indexOf('IN') > tags.indexOf('NNS') && tags.indexOf('IN') < tags.indexOf('NN')) return 'PLURAL';
+        if (tags.indexOf('CC') > tags.indexOf('NN') && tags.indexOf('CC') < tags.indexOf('NNS')) return 'SINGULAR';
+        if (tags.indexOf('CC') > tags.indexOf('NNS') && tags.indexOf('CC') < tags.indexOf('NN')) return 'PLURAL';
+        if (tags.indexOf('WDT') > tags.indexOf('NN') && tags.indexOf('WDT') < tags.indexOf('NNS')) return 'SINGULAR';
+        if (tags.indexOf('WDT') > tags.indexOf('NNS') && tags.indexOf('WDT') < tags.indexOf('NN')) return 'PLURAL';
+        if (tags.indexOf('NN') > tags.indexOf('NNS')) return 'SINGULAR';
+        if (tags.indexOf('NNS') > tags.indexOf('NN')) return 'PLURAL';
+      }
+      else if (tags.includes('NN')) {
+        return 'SINGULAR';
+      }
+      else if (tags.includes('NNS')) {
+        return 'PLURAL';
+      }
+      return 'SINGULAR';
+    },
+
+    templateFromKeyword: function(keyword) {
+      switch (keyword) {
+        case 'tips':
+          return temp.tips;
+        default: return temp.tips;
+      }
+    },
+
+    numberFromInt: function(int) {
+      switch (int) {
+        case 1:
+        return rand('one','1');
+        case 2:
+        return rand('two','2');
+        case 3:
+        return rand('three','3');
+        case 4:
+        return rand('four','4');
+        case 5:
+        return rand('five','5');
+        case 6:
+        return rand('six','6');
+        case 7:
+        return rand('seven','7');
+        case 8:
+        return rand('eight','8');
+        case 9:
+        return rand('nine','9');
+        case 10:
+        return rand('ten','10');
+        case 11:
+        return rand('eleven','11');
+        case 12:
+        return rand('twelve','12');
+        case 13:
+        return rand('thirteen','13');
+        case 14:
+        return rand('fourteen','14');
+        case 15:
+        return rand('fifteen','15');
+        case 16:
+        return rand('sixteen','16');
+        case 17:
+        return rand('seventeen','17');
+        case 18:
+        return rand('eighteen','18');
+        case 19:
+        return rand('ninteen','19');
+        case 20:
+        return rand('twenty','20');
+        default: return '' + int;
+      }
+    },
+
+    titlecase: function(phrase) {
+      if (!phrase || typeof phrase !== 'string') {
+        console.log('Unable to convert into titlecase without string.');
+        return;
+      }
+      return phrase.split(' ').map(el => {
+        if (el.length > 1) {
+          return el[0].toUpperCase() + el.slice(1);
+        }
+        else {
+          return el.toUpperCase();
+        }
+      }).join(' ');
+    },
+
+    title: function(keyword,int,type) {
+      if (!keyword || !int || typeof keyword !== 'string' || typeof int !== 'number') {
+        console.log('Invalid arguments for generating title.');
+        return;
+      }
+      let temp = this.templateFromKeyword(type);
+      let noun = int > 1 ? rand(...temp.plural) : rand(...temp.singular);
+      if (keyword.includes(' ' + noun) || keyword.includes(noun + ' ')) noun = '';
+      let adj = rand(...temp.adjective);
+      let num = adj.includes('the ') ? this.numberFromInt(int) + ' of' : this.numberFromInt(int);
+      let typeOfKeyword = this.keywordType(keyword);
+      let generatedTitle = '';
+      switch (typeOfKeyword) {
+        case 'VERB':
+          generatedTitle = rand(
+            `${num} ${adj} ${noun} to ${keyword}`,
+            `${keyword} - ${num} ${adj} ${noun}`,
+            `${num} ${noun} to ${keyword}`,
+            `${keyword} - ${num} ${noun}`
+          );
+          break;
+        case 'GERUND':
+          generatedTitle = rand(
+            `${num} ${adj} ${noun} for ${keyword}`,
+            `${keyword} - ${num} ${adj} ${noun}`,
+            `${num} ${noun} for ${keyword}`,
+            `${keyword} - ${num} ${noun}`
+          );
+          break;
+        case 'QUESTION':
+          generatedTitle = rand(
+            `${num} ${adj} ${noun} for ${keyword}?`,
+            `${keyword}? ${num} ${adj} ${noun}`,
+            `${num} ${noun} for ${keyword}?`,
+            `${keyword}? ${num} ${noun}`,
+            `${keyword}?`
+          );
+          break;
+        default:
+          if (noun) {
+            generatedTitle = rand(
+              `${num} ${adj} ${keyword} ${noun}`,
+              `${keyword} - ${num} ${adj} ${noun}`,
+              `${num} ${keyword} ${noun}`,
+              `${keyword} - ${num} ${noun}`
+            );
+          }
+          else {
+            generatedTitle = rand(
+              `${num} ${adj} ${keyword}`,
+              `${keyword} - ${num} ${adj} ${noun}`,
+              `${num} ${keyword}`,
+              `${keyword} - ${num} ${noun}`
+            );
+          }
+          break;
+        }
+        return this.titlecase(generatedTitle);
+    }
 
 };
