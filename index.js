@@ -40,6 +40,45 @@ module.exports = {
     }
   },
 
+  split: function(sentence) {
+    if (!sentence || typeof sentence !== 'string') {
+      console.log('No sentence found to split.');
+      return;
+    }
+    let parsedSentence = sentence
+    .replace(/\s+(\-)\s+/g,'|||||$1|||||')
+    .replace(/([\w]+)(\.|\,|\!|\?|\;+)/g,'$1|||||*>*$2')
+    .replace(/\s+(\")(.+)(\")\s+/g,'|||||$1*<*|||||$2|||||*>*$3|||||')
+    .replace(/\s+(\()(.+)(\))\s+/g,'|||||$1*<*|||||$2|||||*>*$3|||||')
+    .replace(/([A-Za-z]+\-)\|\|\|\|\|/g,'$1')
+    .replace(/\s+/g,'|||||')
+    .replace(/\|\|\|\|\|\|\|\|\|\|/g,'|||||');
+    let parsedSentenceSplit = parsedSentence.split('|||||');
+    let tags = new Tag(parsedSentenceSplit).initial().smooth().tags;
+    let parsedTags = [];
+    for (let i = 0; i < tags.length; i++) {
+      if (!parsedSentenceSplit[i].match(/[a-zA-Z]/)) {
+        parsedTags.push('PUNC');
+      }
+      else {
+        parsedTags.push(tags[i]);
+      }
+    }
+    return {words: parsedSentenceSplit, tags: parsedTags};
+  },
+
+  join: function(sentenceObject) {
+    if (!sentenceObject || typeof sentenceObject !== 'object' || !sentenceObject.words) {
+      console.log('No sentence object found to join.');
+      return;
+    }
+    let sentence = sentenceObject.words.join(' ');
+    sentence = sentence
+    .replace(/\s\*\>\*/g,'')
+    .replace(/\*\<\*\s/g,'')
+    return sentence;
+  },
+
   splitStopwords: function(sentence) {
       if (!sentence || typeof sentence !== 'string') {
         console.log('No sentence found to split.');
