@@ -6,7 +6,12 @@ const shuffle = require('bmjs-shuffle');
 
 module.exports = {
 
-  thesaurusOptions: {},
+  thesaurusOptions: {
+    adjective: true,
+    noun: true,
+    verb: true,
+    adverb: true
+  },
 
   init: function() {
     this.thesaurusOptions.adjective = true;
@@ -77,6 +82,66 @@ module.exports = {
     .replace(/\s\*\>\*/g,'')
     .replace(/\*\<\*\s/g,'')
     return sentence;
+  },
+
+  replace: function(sentenceObject,spin) {
+    if (!sentenceObject || typeof sentenceObject !== 'object' || !sentenceObject.words || !sentenceObject.tags || sentenceObject.words.length !== sentenceObject.tags.length) {
+      console.log('No sentence object found to replace.');
+      return;
+    }
+    if (spin === undefined) spin = true;
+    let swappedWords = [];
+    for (let i = 0; i < sentenceObject.tags.length; i++) {
+      let phrase = [];
+      if (sentenceObject.tags[i] !== 'PUNC') {
+        let letter = sentenceObject.words[i][0].toLowerCase();
+        let uppercased = sentenceObject.words[i][0].match(/[A-Z]/) ? true : false;
+        let search = uppercased ? sentenceObject.words[i].toLowerCase() : sentenceObject.words[i];
+        let synonyms = dict[letter];
+        let result;
+        let key = this.matchTag(sentenceObject.tags[i]);
+        if (spin && synonyms && synonyms[search] && synonyms[search][key]) {
+          if (synonyms[search][key].senses.length && synonyms[search][key].senses.length < 5) {
+            result = rand(...synonyms[search][key].all);
+          }
+          else {
+            if (synonyms[search][key].common.length > 5) {
+              result = rand(...synonyms[search][key].common);
+            }
+            else {
+              result = rand(...synonyms[search][key].senses[0]);
+            }
+          }
+        }
+        else {
+          result = search;
+        }
+        if (uppercased && result.length > 1) {
+          swappedWords.push(result[0].toUpperCase() + result.slice(1));
+        }
+        else if (uppercased) {
+          swappedWords.push(result.toUpperCase());
+        }
+        else {
+          swappedWords.push(result);
+        }
+      }
+      else {
+        swappedWords.push(sentenceObject.words[i]);
+      }
+    }
+    return {words: swappedWords, tags: sentenceObject.tags};
+  },
+
+  spin: function(sentence) {
+    if (!sentence || typeof sentence !== 'string') {
+      console.log('No sentence found to spin.');
+      return;
+    }
+    let obj = this.split(sentence);
+    let replacedObj = this.replace(obj,true);
+    let joinedObj = this.join(replacedObj);
+    return joinedObj;
   },
 
   splitStopwords: function(sentence) {
