@@ -159,12 +159,11 @@ module.exports = {
     }
   },
 
-  replace: function(sentenceObject,spin) {
+  replace: function(sentenceObject) {
     if (!sentenceObject || typeof sentenceObject !== 'object' || !sentenceObject.words || !sentenceObject.tags || sentenceObject.words.length !== sentenceObject.tags.length) {
       console.log('No sentence object found to replace.');
       return;
     }
-    if (spin === undefined) spin = true;
     let swappedWords = [];
     for (let i = 0; i < sentenceObject.tags.length; i++) {
       let phrase = [];
@@ -175,7 +174,7 @@ module.exports = {
         let synonyms = dict[letter];
         let result;
         let key = this.matchTag(sentenceObject.tags[i]);
-        if (spin && synonyms && synonyms[search] && synonyms[search][key]) {
+        if (synonyms && synonyms[search] && synonyms[search][key]) {
           if (synonyms[search][key].senses.length && synonyms[search][key].senses.length < 2) {
             result = rand(...synonyms[search][key].all);
           }
@@ -215,7 +214,7 @@ module.exports = {
       return;
     }
     let obj = this.split(sentence);
-    let replacedObj = this.replace(obj,true);
+    let replacedObj = this.replace(obj);
     let joinedObj = this.join(replacedObj);
     return joinedObj;
   },
@@ -341,7 +340,7 @@ module.exports = {
     return phrases;
   },
 
-  stripCommonWords: function(phrase) {
+  strip: function(phrase) {
     if (!phrase || typeof phrase !== 'string') {
       console.log('Unable to strip words without string.');
       return;
@@ -365,87 +364,52 @@ module.exports = {
     return false;
   },
 
-  prettyPrint: function(sentence,spin,strip,randomize) {
-    if (!sentence || typeof sentence !== 'string') {
+  print: function(sentences,spin,strip,randomize,list) {
+    if (!sentences || typeof sentences !== 'object' || !sentences[0]) {
       console.log('Unable to print sentence.');
-      return;
+      return [];
     }
-    let obj = this.splitStopwords(sentence);
-    let swapped = this.swap(obj,spin);
-    let components = randomize ? shuffle(this.findComponents(swapped,strip)) : this.findComponents(swapped,strip);
-    if (components.length) {
-      let sentencesToPrint = [];
-      for (let i = 0; i < components.length; i++) {
-        let punc = this.isQuestion(components[i].long) ? '?' : '.';
-        let component = components[i].long[0].toUpperCase() + components[i].long.slice(1) + punc;
-        sentencesToPrint.push(component);
+    let lines = [];
+    for (let i = 0; i < sentences.length; i++) {
+      let line;
+      if (spin) {
+        line = this.spin(sentences[i]);
       }
-      return sentencesToPrint.join(' ') + '\n';
+      else {
+        line = sentences[i];
+      }
+      if (strip) line = this.strip(line);
+      if (!line.match(/[\.\!\?]$/g)) line += '.';
+      if (!line.match(/^[A-Z]/g)) line = this.capitalcase(line);
+      lines.push(line);
     }
-    return '';
+    if (lines.length && randomize) lines = shuffle(lines);
+    if (list) {
+      return '- ' + lines.join('\n- ') + '\n';
+    }
+    else {
+      return lines.join(' ') + '\n';
+    }
   },
 
-  prettyPrintList: function(sentence,spin,strip,randomize) {
+  snippet: function(sentence,spin,strip,randomize) {
     if (!sentence || typeof sentence !== 'string') {
-      console.log('Unable to print sentence.');
-      return;
+      console.log('Unable to print snippet.');
+      return '';
     }
-    let obj = this.splitStopwords(sentence);
-    let swapped = this.swap(obj,spin);
-    let components = randomize ? shuffle(this.findComponents(swapped,strip)) : this.findComponents(swapped,strip);
-    if (components.length) {
-      let sentencesToPrint = [];
-      for (let i = 0; i < components.length; i++) {
-        let punc = this.isQuestion(components[i].long) ? '?' : '.';
-        let component = '- ' + components[i].long[0].toUpperCase() + components[i].long.slice(1) + punc;
-        sentencesToPrint.push(component);
-      }
-      return sentencesToPrint.join('\n') + '\n';
+    let lines = [];
+    let obj = this.split(sentence);
+    if (spin) obj = this.replace(obj);
+    let components = this.components(obj);
+    if (!components.length) return '';
+    for (let j = 0; j < components.length; j++) {
+      let line = components[j];
+      if (strip) line = this.strip(line);
+      if (!line.match(/^[A-Z]/g)) line = this.capitalcase(line);
+      lines.push(line);
     }
-    return '';
-  },
-
-  prettyPrintSnippet: function(sentence,spin,strip,randomize) {
-    if (!sentence || typeof sentence !== 'string') {
-      console.log('Unable to print sentence.');
-      return;
-    }
-    let obj = this.splitStopwords(sentence);
-    let swapped = this.swap(obj,spin);
-    let components = randomize ? shuffle(this.findComponents(swapped,strip)) : this.findComponents(swapped,strip);
-    if (components.length) {
-      for (let i = 0; i < components.length; i++) {
-        if (!components[i].short.length || components[i].short.length > 30) {
-          continue;
-        }
-        let punc = this.isQuestion(components[i].long) ? '?' : '';
-        let component = components[i].short[0].toUpperCase() + components[i].short.slice(1) + punc;
-        return component;
-      }
-    }
-    return '';
-  },
-
-  prettyPrintSnippets: function(sentence,spin,strip,randomize) {
-    if (!sentence || typeof sentence !== 'string') {
-      console.log('Unable to print sentence.');
-      return;
-    }
-    let obj = this.splitStopwords(sentence);
-    let swapped = this.swap(obj,spin);
-    let components = randomize ? shuffle(this.findComponents(swapped,strip)) : this.findComponents(swapped,strip);
-    if (components.length) {
-      let items = [];
-      for (let i = 0; i < components.length; i++) {
-        if (!components[i].short.length || components[i].short.length > 30) {
-          continue;
-        }
-        let punc = this.isQuestion(components[i].long) ? '?' : '';
-        items.push(components[i].short[0].toUpperCase() + components[i].short.slice(1) + punc);
-      }
-      return items;
-    }
-    return [];
+    if (randomize) lines = shuffle(lines);
+    return lines[0];
   },
 
   validateSentence: function(sentence) {

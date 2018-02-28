@@ -1,5 +1,4 @@
 const pos = require('./index.js');
 pos.init();
-let obj = pos.split('This can be one of the more difficult commands in dog obedience training');
-console.log(obj);
-console.log(pos.components(obj));
+let line = pos.snippet('Save the big booming voice for "life saving" situations, like if he escapes his fence or leash.',1,0,0);
+console.log(line);
