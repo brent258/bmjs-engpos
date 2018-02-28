@@ -122,6 +122,7 @@ module.exports = {
       case 'NNS':
       case 'NNP':
       case 'NNPS':
+      case 'PRP':
       if (this.thesaurusOptions.noun || override) {
         return 'noun';
       }
@@ -146,6 +147,7 @@ module.exports = {
         return 'conjunction';
       }
       case 'DT':
+      case 'PRP$':
       if (this.thesaurusOptions.determiner || override) {
         return 'determiner';
       }
@@ -262,85 +264,77 @@ module.exports = {
         filteredObject.tags.push(sentenceObject.tags[i]);
       }
     }
-    console.log(filteredObject);
     for (let i = 0; i < filteredObject.words.length; i++) {
       let matched = false;
-      if (i > 1) {
-        if (this.matchTag(filteredObject.tags[i-2],true) === 'adverb' && this.matchTag(filteredObject.tags[i-1],true) === 'adjective' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+      if (i < filteredObject.tags.length-2) {
+        if (this.matchTag(filteredObject.tags[i],true) === 'adverb' && this.matchTag(filteredObject.tags[i+1],true) === 'adjective' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'determiner' && this.matchTag(filteredObject.tags[i-1],true) === 'adjective' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'adverb' && this.matchTag(filteredObject.tags[i+1],true) === 'verb' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'adjective' && this.matchTag(filteredObject.tags[i-1],true) === 'conjunction' && this.matchTag(filteredObject.tags[i],true) === 'adjective') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'verb' && this.matchTag(filteredObject.tags[i+1],true) === 'determiner' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'verb' && this.matchTag(filteredObject.tags[i-1],true) === 'determiner' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'verb' && this.matchTag(filteredObject.tags[i+1],true) === 'adjective' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'modal' && this.matchTag(filteredObject.tags[i-1],true) === 'verb' && this.matchTag(filteredObject.tags[i],true) === 'adverb') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'modal' && this.matchTag(filteredObject.tags[i+1],true) === 'verb' && this.matchTag(filteredObject.tags[i+2],true) === 'adverb') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'modal' && this.matchTag(filteredObject.tags[i-1],true) === 'verb' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'modal' && this.matchTag(filteredObject.tags[i+1],true) === 'verb' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'modal' && this.matchTag(filteredObject.tags[i-1],true) === 'adverb' && this.matchTag(filteredObject.tags[i],true) === 'verb') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'modal' && this.matchTag(filteredObject.tags[i+1],true) === 'verb' && this.matchTag(filteredObject.tags[i+2],true) === 'adjective') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'adjective' && this.matchTag(filteredObject.tags[i-1],true) === 'preposition' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'adjective' && this.matchTag(filteredObject.tags[i+1],true) === 'preposition' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'verb' && this.matchTag(filteredObject.tags[i-1],true) === 'preposition' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'adjective' && this.matchTag(filteredObject.tags[i+1],true) === 'adjective' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'adjective' && this.matchTag(filteredObject.tags[i-1],true) === 'adjective' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'adjective' && this.matchTag(filteredObject.tags[i+1],true) === 'adverb' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'adjective' && this.matchTag(filteredObject.tags[i-1],true) === 'adverb' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'adjective' && this.matchTag(filteredObject.tags[i+1],true) === 'conjunction' && this.matchTag(filteredObject.tags[i+2],true) === 'adjective') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'preposition' && this.matchTag(filteredObject.tags[i-1],true) === 'determiner' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'noun' && this.matchTag(filteredObject.tags[i+1],true) === 'noun' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'preposition' && this.matchTag(filteredObject.tags[i-1],true) === 'adjective' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
-          matched = true;
-        }
-        else if (this.matchTag(filteredObject.tags[i-2],true) === 'verb' && this.matchTag(filteredObject.tags[i-1],true) === 'adverb' && this.matchTag(filteredObject.tags[i],true) === 'verb') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'determiner' && this.matchTag(filteredObject.tags[i+1],true) === 'adjective' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
         if (matched) {
-          let phrase = filteredObject.words[i-2] + ' ' + filteredObject.words[i-1] + ' ' + filteredObject.words[i];
+          let phrase = filteredObject.words[i] + ' ' + filteredObject.words[i+1] + ' ' + filteredObject.words[i+2];
           phrases.push(this.capitalcase(phrase));
+          i += 2;
         }
       }
-      if (i > 0 && !matched) {
-        if (this.matchTag(filteredObject.tags[i-1],true) === 'adjective' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+      if (i < filteredObject.tags.length-1 && !matched) {
+        if (this.matchTag(filteredObject.tags[i],true) === 'adjective' && this.matchTag(filteredObject.tags[i+1],true) === 'noun') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-1],true) === 'verb' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'adjective' && this.matchTag(filteredObject.tags[i+1],true) === 'adverb') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-1],true) === 'adjective' && this.matchTag(filteredObject.tags[i],true) === 'adverb') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'adverb' && this.matchTag(filteredObject.tags[i+1],true) === 'adjective') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-1],true) === 'verb' && this.matchTag(filteredObject.tags[i],true) === 'adjective') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'adverb' && this.matchTag(filteredObject.tags[i+1],true) === 'verb') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-1],true) === 'adverb' && this.matchTag(filteredObject.tags[i],true) === 'adjective') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'verb' && this.matchTag(filteredObject.tags[i+1],true) === 'adjective') {
           matched = true;
         }
-        else if (this.matchTag(filteredObject.tags[i-1],true) === 'preposition' && this.matchTag(filteredObject.tags[i],true) === 'noun') {
-          matched = true;
-        }
-        else if (this.matchTag(filteredObject.tags[i-1],true) === 'adverb' && this.matchTag(filteredObject.tags[i],true) === 'verb') {
-          matched = true;
-        }
-        else if (this.matchTag(filteredObject.tags[i-1],true) === 'modal' && this.matchTag(filteredObject.tags[i],true) === 'verb') {
+        else if (this.matchTag(filteredObject.tags[i],true) === 'verb' && this.matchTag(filteredObject.tags[i+1],true) === 'noun') {
           matched = true;
         }
         if (matched) {
-          let phrase = filteredObject.words[i-1] + ' ' + filteredObject.words[i];
+          let phrase = filteredObject.words[i] + ' ' + filteredObject.words[i+1];
           phrases.push(this.capitalcase(phrase));
+          i += 1;
         }
       }
     }
@@ -369,158 +363,6 @@ module.exports = {
       return true;
     }
     return false;
-  },
-
-  findComponents: function(obj,strip) {
-    if (!obj || typeof obj !== 'object') {
-      console.log('Unable to find sentence components without sentence object.');
-      return;
-    }
-    let components = [];
-    for (let i = 0; i < obj.length; i++) {
-      if (i < obj.length-6) {
-        if (obj[i].type === 'COMPONENT' && obj[i+1].type === 'NONCOMPONENT' && obj[i+2].type === 'COMPONENT' && obj[i+3].type === 'NONCOMPONENT' && obj[i+4].type === 'COMPONENT' && obj[i+5].type === 'NONCOMPONENT' && obj[i+6].type === 'COMPONENT') {
-          let list = [obj[i].word,obj[i+1].word,obj[i+2].word,obj[i+3].word,obj[i+4].word,obj[i+5].word,obj[i+6].word];
-          let snippet = [];
-          let index = list.length-1;
-          while (index > -1) {
-            let shortString = snippet.join(' ') + this.stripCommonWords(list[index]);
-            let longString = snippet.join(' ') + list[index];
-            if (strip && shortString.length < 30) {
-              snippet.push(this.stripCommonWords(list[index]));
-              index--;
-              continue;
-            }
-            else if (longString.length < 30) {
-              snippet.push(list[index]);
-              index--;
-              continue;
-            }
-            break;
-          }
-          if (strip) {
-            components.push({long: this.stripCommonWords(list.join(' ')), short: snippet.reverse().join(' ').replace(/\s+/g,' ').trim()});
-          }
-          else {
-            components.push({long: list.join(' '), short: snippet.reverse().join(' ').replace(/\s+/g,' ').trim()});
-          }
-          i += 6;
-          continue;
-        }
-      }
-      if (i < obj.length-4) {
-        if (obj[i].type === 'COMPONENT' && obj[i+1].type === 'NONCOMPONENT' && obj[i+2].type === 'COMPONENT' && obj[i+3].type === 'NONCOMPONENT' && obj[i+4].type === 'COMPONENT') {
-          let list = [obj[i].word,obj[i+1].word,obj[i+2].word,obj[i+3].word,obj[i+4].word];
-          let snippet = [];
-          let index = list.length-1;
-          while (index > -1) {
-            let shortString = snippet.join(' ') + this.stripCommonWords(list[index]);
-            let longString = snippet.join(' ') + list[index];
-            if (strip && shortString.length < 30) {
-              snippet.push(this.stripCommonWords(list[index]));
-              index--;
-              continue;
-            }
-            else if (longString.length < 30) {
-              snippet.push(list[index]);
-              index--;
-              continue;
-            }
-            break;
-          }
-          if (strip) {
-            components.push({long: this.stripCommonWords(list.join(' ')), short: snippet.reverse().join(' ').replace(/\s+/g,' ').trim()});
-          }
-          else {
-            components.push({long: list.join(' '), short: snippet.reverse().join(' ').replace(/\s+/g,' ').trim()});
-          }
-          i += 4;
-          continue;
-        }
-      }
-      if (i < obj.length-2) {
-        if (obj[i].type === 'COMPONENT' && obj[i+1].type === 'NONCOMPONENT' && obj[i+2].type === 'COMPONENT') {
-          let list = [obj[i].word,obj[i+1].word,obj[i+2].word];
-          let snippet = [];
-          let index = list.length-1;
-          while (index > -1) {
-            let shortString = snippet.join(' ') + this.stripCommonWords(list[index]);
-            let longString = snippet.join(' ') + list[index];
-            if (strip && shortString.length < 30) {
-              snippet.push(this.stripCommonWords(list[index]));
-              index--;
-              continue;
-            }
-            else if (longString.length < 30) {
-              snippet.push(list[index]);
-              index--;
-              continue;
-            }
-            break;
-          }
-          if (strip) {
-            components.push({long: this.stripCommonWords(list.join(' ')), short: snippet.reverse().join(' ').replace(/\s+/g,' ').trim()});
-          }
-          else {
-            components.push({long: list.join(' '), short: snippet.reverse().join(' ').replace(/\s+/g,' ').trim()});
-          }
-          i += 2;
-          continue;
-        }
-      }
-    }
-    return components;
-  },
-
-  swap: function(obj,spin) {
-    if (!obj || typeof obj !== 'object') {
-      console.log('No sentence object found.');
-      return;
-    }
-    let swappedObjects = [];
-    for (let i = 0; i < obj.length; i++) {
-      let phrase = [];
-      if (obj[i].type === 'COMPONENT') {
-        this.searchAndReplaceDictionary(obj[i],phrase,spin);
-        let newObject = {
-          word: phrase.join(' '),
-          type: 'COMPONENT',
-          pos: obj[i].pos
-        }
-        swappedObjects.push(newObject);
-      }
-      else {
-        this.searchAndReplacePhrases(obj[i],phrase,spin);
-        let newObject = {
-          word: phrase.join(' '),
-          type: obj[i].type,
-          pos: obj[i].pos
-        }
-        swappedObjects.push(newObject);
-      }
-    }
-    let mergedObjects = [];
-    for (let i = 0; i < swappedObjects.length; i++) {
-      let index = mergedObjects.length-1 || 0;
-      if (mergedObjects[index] && mergedObjects[index].type === 'COMPONENT' && (swappedObjects[i].type === 'COMPONENT' || swappedObjects[i].type === 'DETERMINER')) {
-        mergedObjects[index].word += ' ' + swappedObjects[i].word;
-      }
-      else if (mergedObjects[index] && mergedObjects[index].type === 'NONCOMPONENT' && (swappedObjects[i].type === 'PREPOSITION' || swappedObjects[i].type === 'CONJUNCTION' || swappedObjects[i].type === 'VERB')) {
-        mergedObjects[index].word += ' ' + swappedObjects[i].word;
-      }
-      else {
-        if (swappedObjects[i].type === 'DETERMINER' || swappedObjects[i].type === 'COMPONENT') {
-          mergedObjects.push({word: swappedObjects[i].word, type: 'COMPONENT'});
-        }
-        else if (swappedObjects[i].type === 'PREPOSITION' || swappedObjects[i].type === 'CONJUNCTION' || swappedObjects[i].type === 'VERB') {
-          mergedObjects.push({word: swappedObjects[i].word, type: 'NONCOMPONENT'});
-        }
-        else if (swappedObjects[i].type === 'PUNCTUATION') {
-          mergedObjects.push({word: swappedObjects[i].word, type: 'PUNCTUATION'});
-        }
-      }
-    }
-    return mergedObjects;
   },
 
   prettyPrint: function(sentence,spin,strip,randomize) {
