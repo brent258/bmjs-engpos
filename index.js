@@ -302,6 +302,9 @@ module.exports = {
         else if (this.matchTag(filteredObject.tags[i],true) === 'noun' && this.matchTag(filteredObject.tags[i+1],true) === 'noun' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
+        else if (this.matchTag(filteredObject.tags[i],true) === 'noun' && this.matchTag(filteredObject.tags[i+1],true) === 'preposition' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
+          matched = true;
+        }
         else if (this.matchTag(filteredObject.tags[i],true) === 'noun' && this.matchTag(filteredObject.tags[i+1],true) === 'verb' && this.matchTag(filteredObject.tags[i+2],true) === 'noun') {
           matched = true;
         }
@@ -472,7 +475,7 @@ module.exports = {
     }
   },
 
-  templateFromKeyword: function(keyword) {
+  template: function(keyword) {
     switch (keyword) {
       case 'tips':
         return temp.tips;
@@ -533,108 +536,146 @@ module.exports = {
     }
     if (!int || typeof int !== 'number') int = 0;
     let keywordType = this.keyword(type);
-    let temp = this.templateFromKeyword(template);
-    let noun = keywordType === 'PLURAL' ? rand(...temp.plural) : rand(...temp.singular);
-    if (keyword.includes(' ' + noun) || keyword.includes(noun + ' ')) noun = '';
+    let temp = this.template(template);
     let adj = rand(...temp.adjective);
     let num;
     if (int) {
       num = adj.includes('the ') ? this.numberFromInt(int) + ' of' : this.numberFromInt(int);
     }
+    let noun;
+    let splitKeyword = keyword.split(' ');
+    if (int === 1) {
+      noun = rand(...temp.singular);
+      for (let i = 0; i < splitKeyword.length; i++) {
+        if (temp.singular.includes(splitKeyword[i])) {
+          noun = '';
+          break;
+        }
+      }
+    }
+    else {
+      noun = rand(...temp.plural);
+      for (let i = 0; i < splitKeyword.length; i++) {
+        if (temp.plural.includes(splitKeyword[i]) || temp.uncountable.includes(splitKeyword[i])) {
+          noun = '';
+          break;
+        }
+      }
+    }
+    if (noun && !num) noun = true === rand(true,false) ? rand(...temp.uncountable) : noun;
     let generatedTitle = '';
     switch (keywordType) {
       case 'VERB':
-        if (num) {
-          generatedTitle = rand(
-            `${num} ${adj} ${noun} to ${keyword}`,
-            `${keyword} - ${num} ${adj} ${noun}`,
-            `${num} ${noun} to ${keyword}`,
-            `${keyword} - ${num} ${noun}`
-          );
-        }
-        else {
-          generatedTitle = rand(
-            `${adj} ${noun} to ${keyword}`,
-            `${keyword} - ${adj} ${noun}`,
-            `${noun} to ${keyword}`,
-            `${keyword} - ${noun}`
-          );
-        }
-        break;
-      case 'GERUND':
-        if (num) {
-          generatedTitle = rand(
-            `${num} ${adj} ${noun} for ${keyword}`,
-            `${keyword} - ${num} ${adj} ${noun}`,
-            `${num} ${noun} for ${keyword}`,
-            `${keyword} - ${num} ${noun}`
-          );
-        }
-        else {
-          generatedTitle = rand(
-            `${adj} ${noun} for ${keyword}`,
-            `${keyword} - ${adj} ${noun}`,
-            `${noun} for ${keyword}`,
-            `${keyword} - ${noun}`
-          );
-        }
-        break;
-      case 'QUESTION':
-        if (num) {
-          generatedTitle = rand(
-            `${num} ${adj} ${noun} for ${keyword}?`,
-            `${keyword}? ${num} ${adj} ${noun}`,
-            `${num} ${noun} for ${keyword}?`,
-            `${keyword}? ${num} ${noun}`,
-            `${keyword}?`
-          );
-        }
-        else {
-          generatedTitle = rand(
-            `${adj} ${noun} for ${keyword}?`,
-            `${keyword}? ${adj} ${noun}`,
-            `${noun} for ${keyword}?`,
-            `${keyword}? ${noun}`,
-            `${keyword}?`
-          );
-        }
-        break;
-      default:
-        if (noun) {
-          if (num) {
-            generatedTitle = rand(
-              `${num} ${adj} ${keyword} ${noun}`,
-              `${keyword} - ${num} ${adj} ${noun}`,
-              `${num} ${keyword} ${noun}`,
-              `${keyword} - ${num} ${noun}`
-            );
-          }
-          else {
-            generatedTitle = rand(
-              `${adj} ${keyword} ${noun}`,
-              `${keyword} - ${adj} ${noun}`,
-              `${keyword} ${noun}`,
-              `${keyword} - ${noun}`
-            );
-          }
-        }
-        else {
-          if (num) {
-            generatedTitle = rand(
-              `${num} ${adj} ${keyword}`,
-              `${num} ${keyword}`
-            );
-          }
-          else {
-            generatedTitle = rand(
-              `${adj} ${keyword}`,
-              `${keyword}`
-            );
-          }
-        }
-        break;
+      if (num) {
+        generatedTitle = rand(
+          `${num} ${adj} ${noun} to ${keyword}`,
+          `${keyword} - ${num} ${adj} ${noun}`,
+          `${num.replace(' of','')} ${noun} to ${keyword}`,
+          `${keyword} - ${num.replace(' of','')} ${noun}`
+        );
       }
-      return this.titlecase(generatedTitle);
+      else {
+        generatedTitle = rand(
+          `${adj} ${noun} to ${keyword}`,
+          `${keyword} - ${adj} ${noun}`,
+          `${noun} to ${keyword}`,
+          `${keyword} - ${noun}`
+        );
+      }
+      break;
+      case 'GERUND':
+      if (num) {
+        generatedTitle = rand(
+          `${num} ${adj} ${noun} for ${keyword}`,
+          `${keyword} - ${num} ${adj} ${noun}`,
+          `${num.replace(' of','')} ${noun} for ${keyword}`,
+          `${keyword} - ${num.replace(' of','')} ${noun}`
+        );
+      }
+      else {
+        generatedTitle = rand(
+          `${adj} ${noun} for ${keyword}`,
+          `${keyword} - ${adj} ${noun}`,
+          `${noun} for ${keyword}`,
+          `${keyword} - ${noun}`
+        );
+      }
+      break;
+      case 'QUESTION':
+      if (num) {
+        generatedTitle = rand(
+          `${num} ${adj} ${noun} for ${keyword}?`,
+          `${keyword}? ${num} ${adj} ${noun}`,
+          `${num.replace(' of','')} ${noun} for ${keyword}?`,
+          `${keyword}? ${num.replace(' of','')} ${noun}`,
+          `${keyword}?`
+        );
+      }
+      else {
+        generatedTitle = rand(
+          `${adj} ${noun} for ${keyword}?`,
+          `${keyword}? ${adj} ${noun}`,
+          `${noun} for ${keyword}?`,
+          `${keyword}? ${noun}`,
+          `${keyword}?`
+        );
+      }
+      break;
+      default:
+      if (noun) {
+        if (num) {
+          generatedTitle = rand(
+            `${num} ${adj} ${keyword} ${noun}`,
+            `${keyword} - ${num} ${adj} ${noun}`,
+            `${num.replace(' of','')} ${keyword} ${noun}`,
+            `${keyword} - ${num.replace(' of','')} ${noun}`
+          );
+        }
+        else {
+          generatedTitle = rand(
+            `${adj} ${keyword} ${noun}`,
+            `${keyword} - ${adj} ${noun}`,
+            `${keyword} ${noun}`,
+            `${keyword} - ${noun}`
+          );
+        }
+      }
+      else {
+        if (num) {
+          generatedTitle = rand(
+            `${num} ${adj} ${keyword}`,
+            `${num.replace(' of','')} ${keyword}`
+          );
+        }
+        else {
+          generatedTitle = rand(
+            `${adj} ${keyword}`,
+            `${keyword}`
+          );
+        }
+      }
+      break;
+    }
+    return this.titlecase(generatedTitle);
+  },
+
+  intro: function(template,keywordList,plural,determiner,nounType) {
+    if (!keywordList || typeof keywordList !== 'object' || !template || typeof template !== 'string') {
+      console.log('Invalid arguments for generating intro.');
+      return;
+    }
+    let temp = this.template(template);
+    let lines = temp.intro(keywordList,plural,determiner,nounType);
+    return this.capitalcase(lines.lineOne) + ' ' + this.capitalcase(lines.lineTwo) + ' ' + this.capitalcase(lines.lineThree);
+  },
+
+  tags: function(keywordList) {
+    if (!keywordList || typeof keywordList !== 'object') {
+      console.log('Invalid arguments for generating tags.');
+      return;
+    }
+    keywordList = shuffle(keywordList);
+    return keywordList.join(',');
   }
 
 };
