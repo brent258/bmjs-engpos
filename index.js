@@ -479,6 +479,18 @@ module.exports = {
     switch (keyword) {
       case 'tips':
         return temp.tips;
+      case 'pitfalls':
+        return temp.pitfalls;
+      case 'list':
+        return temp.list;
+      case 'products':
+        return temp.products;
+      case 'review':
+        return temp.review;
+      case 'facts':
+        return temp.facts;
+      case 'guide':
+        return temp.guide;
       default: return temp.tips;
     }
   },
@@ -544,7 +556,10 @@ module.exports = {
     }
     let noun;
     let splitKeyword = keyword.split(' ');
-    if (int === 1) {
+    if (!temp.plural.length || !temp.singular.length) {
+      noun = '';
+    }
+    else if (int === 1) {
       noun = rand(...temp.singular);
       for (let i = 0; i < splitKeyword.length; i++) {
         if (temp.singular.includes(splitKeyword[i])) {
@@ -562,7 +577,7 @@ module.exports = {
         }
       }
     }
-    if (noun && !num) noun = true === rand(true,false) ? rand(...temp.uncountable) : noun;
+    if (noun && !num && temp.uncountable.length) noun = true === rand(true,false,false,false) ? rand(...temp.uncountable) : noun;
     let generatedTitle = '';
     switch (keywordType) {
       case 'VERB':
