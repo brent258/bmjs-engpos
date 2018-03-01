@@ -691,6 +691,35 @@ module.exports = {
     }
     keywordList = shuffle(keywordList);
     return keywordList.join(',');
-  }
+  },
+
+  promo: function(keyword,link,determiner) {
+    if (!keyword || typeof keyword !== 'string' || !link || typeof link !== 'string') {
+      console.log('Invalid arguments for generating promo.');
+      return;
+    }
+    determiner = (determiner === 'the' || determiner === 'a') ? determiner : '';
+    if (determiner) {
+      keyword = determiner + ' ' + keyword;
+      keyword = keyword.replace(/^a\s(a|e|i|o|u)/i,'an $1').replace(/^an\s(uni|eu)/i,'a $1');
+    }
+    let text = [
+      `${rand('visit','check out','take a look at')} ${link} ${rand('to find out more about','to learn more about','if you want more info on','for more information about')} ${keyword}.`,
+      `${rand('find out more about','learn more about','more info on','more information about','get more info on')} ${keyword}: ${link}`,
+      `${rand('want to find out more about','want to learn more about','want more info on','want more information about','want to get more info on')} ${keyword}? ${rand('Visit','Check out','Take a look at')} ${link}`,
+    ];
+    return this.capitalcase(rand(...text));
+  },
+
+  license: function(copyright) {
+    let text = '';
+    if (!copyright) {
+      text = `${rand('all images','all image contents','any and all images')} ${rand('used','included','shown','presented','published')} ${rand('in the course of','during','throughout','in','within')} this video are ${rand('permitted','allowed','acceptable','accepted')} for commercial use under Creative Commons or unrestricted licenses and ${rand('proper','correct','the right')} attribution is ${rand('given','provided','mentioned','needed')} where ${rand('required','necessary','suitable','needed')}.`;
+    }
+    else {
+      text = `${rand('all images','all image contents','any and all images')} ${rand('used','included','shown','presented','published')} ${rand('in the course of','during','throughout','in','within')} this video are ${rand('permitted','allowed','acceptable','accepted')} for commercial use under fair use policy and ${rand('remain','stay','are')} the property of ${rand('their','the')} ${rand('respective','original')} copyright ${rand('holder','holders','owner','owners')}.`;
+    }
+    return this.capitalcase(text);
+  },
 
 };

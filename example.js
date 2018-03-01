@@ -1,15 +1,5 @@
 const pos = require('./index.js');
 pos.init();
-pos.unset(['noun','preposition']);
-let line = pos.snippet('I like cheese on toast.',0,0,0);
-console.log(line);
-console.log(pos.title('dog bowls','p','list',10));
-console.log(pos.intro('list',['dog bowls','dog feeders'],10));
-console.log(pos.title('dog training','p','facts',10));
-console.log(pos.intro('facts',['how to train a dog','training a dog','dog training'],10,'','an activity'));
-console.log(pos.title('dog bowls','p','products',10));
-console.log(pos.intro('products',['dog bowls'],10));
-console.log(pos.title('dog training','p','pitfalls',10));
-console.log(pos.intro('pitfalls',['how to train a dog','training a dog','dog training'],10,'','an activity'));
-console.log(pos.title('dog training','p','tips',10));
-console.log(pos.intro('tips',['how to train a dog','training a dog','dog training'],10,'','an activity'));
+console.log(pos.title('dog training','s','tips',9));
+console.log(pos.intro('tips',['dog training','training your dog','how to train your dog']));
+console.log(pos.license(false));
