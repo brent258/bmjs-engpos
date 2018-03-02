@@ -1,6 +1,6 @@
 {
   "name": "bmjs-engpos",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "An English language utility for parsing and reformatting snippets of given text.",
   "main": "index.js",
   "scripts": {

@@ -357,12 +357,14 @@ module.exports = {
       console.log('Unable to strip words without string.');
       return;
     }
-    return phrase
+    let strippedPhrase = phrase
     .replace(/^(i|you|it|he|she|they|this|these|that|those|we|i\'m|he\'s|she\'s|we\'re|you\'re|there|there\'re|there\'s)\s/gi,'')
     .replace(/\b(isn\'t|aren\'t|wasn\'t|weren\'t|hasn\'t|haven\'t|can\'t\sbe|cannot\sbe|won\'t\sbe|mightn\'t\sbe|wouldn\'t\sbe|shouldn\'t\sbe)\b/gi,'not')
     .replace(/\b(the|a|an|is|are|was|were|to\sbe|can\sbe|may\sbe|might\sbe|could\sbe|should\sbe|will\sbe|would\sbe|it\'s|they\'re|my|your|his|her|its|their|our)\b/gi,'')
     .replace(/\s+/g,' ')
     .trim();
+    if (!strippedPhrase.match(/^[A-Z]/g) && phrase.match(/^[A-Z]/g)) strippedPhrase = this.capitalcase(strippedPhrase);
+    return strippedPhrase;
   },
 
   isQuestion: function(phrase) {
@@ -391,8 +393,8 @@ module.exports = {
         line = sentences[i];
       }
       if (strip) line = this.strip(line);
-      if (!line.match(/[\.\!\?]$/g)) line += '.';
       if (!line.match(/^[A-Z]/g)) line = this.capitalcase(line);
+      if (!line.match(/[\.\!\?]$/g)) line += '.';
       lines.push(line);
     }
     if (lines.length && randomize) lines = shuffle(lines);

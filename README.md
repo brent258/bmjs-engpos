@@ -1,41 +1,29 @@
 # bmjs-engpos
 An English language utility for extracting interesting parts from a string of text a re-printing them in a selection of formats. Also includes options for replacing recognized terms from an in-built thesaurus, filtering out common stopwords and randomizing the output order.
-
 ```javascript
 const pos = require('bmjs-engpos');
-let sentence = 'An English language utility for extracting interesting parts from a string of text and re-printing them in a selection of formats. Also includes options for replacing recognized terms from an in-built thesaurus, filtering out common stopwords and randomizing the output order.';
 ```
-***prettyPrint():*** Prints a paragraph-like string of text (sentence: *String*,spin: *Bool*,strip: *Bool*,randomize: *Bool*) -> *String*
+***unset():*** Disable options (adjective, verb, noun, adverb, preposition, conjunction, determiner, modal) for word replacement in in-built thesaurus (options: *String* | *[String]*)
 ```javascript
-let printed = pos.prettyPrint(sentence,true,true,true);
-console.log(printed);
-
-/* Includes options for replacing recognized terms from in-built thesaurus. English language advantageousness for extracting thought-provoking parts from string of text. Re-printing them in selection of formats. Filtering out common stopwords and randomizing manufacturing order. */
+pos.init();
+pos.unset(['verb','noun']);
 ```
-***prettyPrintList():*** Prints a list-like string of text (sentence: *String*,spin: *Bool*,strip: *Bool*,randomize: *Bool*) -> *String*
+***print():*** Prints a paragraph-like string of text (sentences: *String*,spin: *Bool*,strip: *Bool*,randomize: *Bool*,list: *Bool*) -> *String*
 ```javascript
-let printed = pos.prettyPrintList(sentence,true,true,true);
-console.log(printed);
-
-/* - Filtering out common stopwords and randomizing outturn order.
-- Includes options for replacing recognized terms from in-built thesaurus.
-- English language use for extracting beguiling parts from string of text.
-- Re-printing them in selection of formats. */
+let sentences = ['this is a first sentence','this is a second sentence.'];
+let print = pos.print(sentences,true,true,true,false);
+console.log(print);
+/*
+This is a first sentence. This is a additional sentence.
+*/
 ```
-***prettyPrintSnippets():*** Returns an array of shortened snippets of text (sentence: *String*,spin: *Bool*,strip: *Bool*,randomize: *Bool*) -> *[String]*
+***snippets():*** Prints a string of truncated text components (sentences: *String*,spin: *Bool*,strip: *Bool*,randomize: *Bool*,list: *Bool*) -> *String*
 ```javascript
-let printed = pos.prettyPrintSnippets(sentence,true,true,true);
-console.log(printed);
-
-/* [ 'Randomizing production order',
-  'From string of text',
-  'From in-built wordfinder',
-  'In selection of formats' ] */
-```
-***prettyPrintSnippet():*** Prints one shortened string of text (sentence: *String*,spin: *Bool*,strip: *Bool*,randomize: *Bool*) -> *String*
-```javascript
-let printed = pos.prettyPrintSnippet(sentence,true,true,true);
-console.log(printed);
-
-/* From string of text */
+let sentences = ['this is a first sentence','this is a second sentence.'];
+let snippets = pos.snippets(sentences,true,true,true,true);
+console.log(snippets);
+/*
+- First sentence.
+- Second sentence.
+*/
 ```
