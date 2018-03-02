@@ -491,6 +491,8 @@ module.exports = {
         return temp.facts;
       case 'guide':
         return temp.guide;
+      case 'pictures':
+        return temp.pictures;
       default: return temp.tips;
     }
   },
@@ -585,12 +587,16 @@ module.exports = {
         generatedTitle = rand(
           `${num} ${adj} ${noun} to ${keyword}`,
           `${keyword} - ${num} ${adj} ${noun}`,
+          `${num} ${adj} ${noun} to ${keyword}`,
+          `${keyword} - ${num} ${adj} ${noun}`,
           `${num.replace(' of','')} ${noun} to ${keyword}`,
           `${keyword} - ${num.replace(' of','')} ${noun}`
         );
       }
       else {
         generatedTitle = rand(
+          `${adj} ${noun} to ${keyword}`,
+          `${keyword} - ${adj} ${noun}`,
           `${adj} ${noun} to ${keyword}`,
           `${keyword} - ${adj} ${noun}`,
           `${noun} to ${keyword}`,
@@ -603,12 +609,16 @@ module.exports = {
         generatedTitle = rand(
           `${num} ${adj} ${noun} for ${keyword}`,
           `${keyword} - ${num} ${adj} ${noun}`,
+          `${num} ${adj} ${noun} for ${keyword}`,
+          `${keyword} - ${num} ${adj} ${noun}`,
           `${num.replace(' of','')} ${noun} for ${keyword}`,
           `${keyword} - ${num.replace(' of','')} ${noun}`
         );
       }
       else {
         generatedTitle = rand(
+          `${adj} ${noun} for ${keyword}`,
+          `${keyword} - ${adj} ${noun}`,
           `${adj} ${noun} for ${keyword}`,
           `${keyword} - ${adj} ${noun}`,
           `${noun} for ${keyword}`,
@@ -621,6 +631,8 @@ module.exports = {
         generatedTitle = rand(
           `${num} ${adj} ${noun} for ${keyword}?`,
           `${keyword}? ${num} ${adj} ${noun}`,
+          `${num} ${adj} ${noun} for ${keyword}?`,
+          `${keyword}? ${num} ${adj} ${noun}`,
           `${num.replace(' of','')} ${noun} for ${keyword}?`,
           `${keyword}? ${num.replace(' of','')} ${noun}`,
           `${keyword}?`
@@ -628,6 +640,8 @@ module.exports = {
       }
       else {
         generatedTitle = rand(
+          `${adj} ${noun} for ${keyword}?`,
+          `${keyword}? ${adj} ${noun}`,
           `${adj} ${noun} for ${keyword}?`,
           `${keyword}? ${adj} ${noun}`,
           `${noun} for ${keyword}?`,
@@ -642,12 +656,16 @@ module.exports = {
           generatedTitle = rand(
             `${num} ${adj} ${keyword} ${noun}`,
             `${keyword} - ${num} ${adj} ${noun}`,
+            `${num} ${adj} ${keyword} ${noun}`,
+            `${keyword} - ${num} ${adj} ${noun}`,
             `${num.replace(' of','')} ${keyword} ${noun}`,
             `${keyword} - ${num.replace(' of','')} ${noun}`
           );
         }
         else {
           generatedTitle = rand(
+            `${adj} ${keyword} ${noun}`,
+            `${keyword} - ${adj} ${noun}`,
             `${adj} ${keyword} ${noun}`,
             `${keyword} - ${adj} ${noun}`,
             `${keyword} ${noun}`,
